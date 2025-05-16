@@ -1,7 +1,7 @@
 package com.oleh.pavliuk.patterns.service;
 
-import com.oleh.pavliuk.patterns.model.Employee;
-import com.oleh.pavliuk.patterns.repository.EmployeeRepository;
+import com.oleh.pavliuk.patterns.model.Mentor;
+import com.oleh.pavliuk.patterns.repository.MentorRepository;
 
 import java.util.List;
 
@@ -9,19 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeService {
+public class MentorService {
     @Autowired
-    private EmployeeRepository repository;
+    private MentorRepository repository;
 
-    public void create(Employee employee) {
-        repository.save(employee);
+    public void create(Mentor mentor) {
+        repository.save(mentor);
     }
 
-    public List<Employee> getAll() {
+    public List<Mentor> getAll() {
         return repository.findAll();
     }
 
-    public Employee getById(Long id) {
+    public Mentor getById(Long id) {
         return repository.getReferenceById(id);
     }
 
