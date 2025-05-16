@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Form</title>
+</head>
+<body>
+<h1 th:text="(${employee.id} == null) ? 'Add Employee' : 'Edit Employee'"></h1>
+
+<form th:action="@{/api/employee/save}" th:object="${employee}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <p>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required />
+    </p>
+    <p>
+        <label>Position:</label>
+        <input type="text" th:field="*{position}" required />
+    </p>
+    <p>
+        <label>Start Date:</label>
+        <input type="date" th:field="*{startDate}" required />
+    </p>
+    <p>
+        <label>HR Manager:</label>
+        <select th:field="*{hrManager.id}">
+            <option value="" selected>-- Select HR Manager --</option>
+            <option th:each="hr : ${hrManagers}" th:value="${hr.id}" th:text="${hr.name}"></option>
+        </select>
+    </p>
+    <p>
+        <label>IT Administrator:</label>
+        <select th:field="*{itAdministrator.id}">
+            <option value="" selected>-- Select IT Administrator --</option>
+            <option th:each="it : ${itAdministrators}" th:value="${it.id}" th:text="${it.name}"></option>
+        </select>
+    </p>
+    <p>
+        <label>Mentor:</label>
+        <select th:field="*{mentor.id}">
+            <option value="" selected>-- Select Mentor --</option>
+            <option th:each="m : ${mentors}" th:value="${m.id}" th:text="${m.name}"></option>
+        </select>
+    </p>
+    <p>
+        <label>User Account:</label>
+        <select th:field="*{userAccount.id}">
+            <option value="" selected>-- Select User Account --</option>
+            <option th:each="ua : ${userAccounts}" th:value="${ua.id}" th:text="${ua.username}"></option>
+        </select>
+    </p>
+    <p>
+        <label>Workstation:</label>
+        <select th:field="*{workstation.id}">
+            <option value="" selected>-- Select Workstation --</option>
+            <option th:each="ws : ${workstations}" th:value="${ws.id}" th:text="${ws.location}"></option>
+        </select>
+    </p>
+    <p>
+        <button type="submit">Save</button>
+        <a href="/">Cancel</a>
+    </p>
+</form>
+</body>
+</html>

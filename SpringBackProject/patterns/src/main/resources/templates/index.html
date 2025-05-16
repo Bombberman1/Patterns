@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employees List</title>
+</head>
+<body>
+<h1>Employees</h1>
+
+<a href="/api/employee/add">Add Employee</a>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Start Date</th>
+            <th>HR Manager</th>
+            <th>IT Administrator</th>
+            <th>Mentor</th>
+            <th>User Account</th>
+            <th>Workstation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.position}"></td>
+        <td th:text="${employee.startDate}"></td>
+        <td th:text="${employee.hrManager != null ? employee.hrManager.name : ''}"></td>
+        <td th:text="${employee.itAdministrator != null ? employee.itAdministrator.name : ''}"></td>
+        <td th:text="${employee.mentor != null ? employee.mentor.name : ''}"></td>
+        <td th:text="${employee.userAccount != null ? employee.userAccount.username : ''}"></td>
+        <td th:text="${employee.workstation != null ? employee.workstation.location : ''}"></td>
+        <td>
+            <a th:href="@{'/api/employee/edit/' + ${employee.id}}">Edit</a> |
+            <a th:href="@{'/api/employee/delete/' + ${employee.id}}" onclick="return confirm('Delete this employee?');">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
