@@ -51,34 +51,26 @@ public class EmployeeController {
 
     @PostMapping("/api/employee/save")
     public String saveEmployee(@ModelAttribute Employee employee) {
-        if (employee.getHrManager() != null && employee.getHrManager().getId() != null) {
-            employee.setHrManager(hrManagerService.getById(employee.getHrManager().getId()));
-        } else {
-            employee.setHrManager(null);
-        }
-
-        if (employee.getItAdministrator() != null && employee.getItAdministrator().getId() != null) {
-            employee.setItAdministrator(itAdministratorService.getById(employee.getItAdministrator().getId()));
-        } else {
-            employee.setItAdministrator(null);
-        }
-
-        if (employee.getMentor() != null && employee.getMentor().getId() != null) {
-            employee.setMentor(mentorService.getById(employee.getMentor().getId()));
-        } else {
-            employee.setMentor(null);
-        }
-
         if (employee.getUserAccount() != null && employee.getUserAccount().getId() != null) {
-            employee.setUserAccount(userAccountService.getById(employee.getUserAccount().getId()));
-        } else {
-            employee.setUserAccount(null);
+            var existing = userAccountService.getById(employee.getUserAccount().getId());
+            existing.setUsername(employee.getUserAccount().getUsername());
+            existing.setEmail(employee.getUserAccount().getEmail());
+            existing.setTemporaryPassword(employee.getUserAccount().getTemporaryPassword());
+            employee.setUserAccount(existing);
         }
 
         if (employee.getWorkstation() != null && employee.getWorkstation().getId() != null) {
-            employee.setWorkstation(workstationService.getById(employee.getWorkstation().getId()));
-        } else {
-            employee.setWorkstation(null);
+            var existing = workstationService.getById(employee.getWorkstation().getId());
+            existing.setLocation(employee.getWorkstation().getLocation());
+            existing.setOperatingSystem(employee.getWorkstation().getOperatingSystem());
+            employee.setWorkstation(existing);
+        }
+
+        if (employee.getMentor() != null && employee.getMentor().getId() != null) {
+            var existing = mentorService.getById(employee.getMentor().getId());
+            existing.setName(employee.getMentor().getName());
+            existing.setDepartment(employee.getMentor().getDepartment());
+            employee.setMentor(existing);
         }
 
         employeeService.create(employee);
