@@ -11,7 +11,7 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
-        props.load(new FileInputStream("src/main/resources/application.properties"));
+        props.load(new FileInputStream("application.properties"));
 
         String outputType = props.getProperty("output.type");
         OutputStrategy strategy;

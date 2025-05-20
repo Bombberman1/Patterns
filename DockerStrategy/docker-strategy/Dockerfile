@@ -11,6 +11,6 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 
 WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/docker-strategy-FINAL-shaded.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]

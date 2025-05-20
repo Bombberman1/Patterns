@@ -1,0 +1,18 @@
+docker-compose down -v
+docker-compose up --build
+docker-compose start
+
+
+# # console
+docker logs docker-strategy-app-1
+
+
+# # Redis
+docker exec -it $(docker ps -qf "name=redis") redis-cli
+KEYS *
+LRANGE kpi:records 0 -1
+
+
+# # Kafka
+docker exec -it $(docker ps -qf "name=kafka") bash
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic kpi-topic --from-beginning
